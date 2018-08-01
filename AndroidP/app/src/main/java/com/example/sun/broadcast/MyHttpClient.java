@@ -17,9 +17,17 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URL;
-
-
 import javax.net.ssl.HttpsURLConnection;
+
+
+
+
+import java.io.IOException;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
+
 
 public class MyHttpClient extends AppCompatActivity {
 TextView textView;
@@ -45,9 +53,27 @@ TextView textView;
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+getExample();
 
             }
         });
+
+    }
+
+
+
+    public void getExample(){
+        OkHttpClient clinet = new OkHttpClient();
+        Request request = new Request.Builder().url("https://raw.github.com/square/okhttp/master/README.md").build();
+        try{
+            Response reponse = clinet.newCall(request).execute();
+            textView.setText(reponse.body().string()); ;
+        }catch (IOException e){
+ e.printStackTrace();
+
+        }
+
+
 
     }
     public void testHttpClient(){
